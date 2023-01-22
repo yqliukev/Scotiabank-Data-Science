@@ -11,8 +11,23 @@ train_data <- read.csv("Use_Data/train_ScotiaDSD.csv") %>%
   select(!EVENT_TIME) %>%
   select(!TRANSACTION_ID) %>% 
   select(!USER_AGENT) %>%
-  select(!CITY)
+  select(!CITY) %>%
+  mutate(FRAUD_FLAG = as.factor(FRAUD_FLAG)) %>%
+# remove amount_weight for now
+  select(!AMOUNT_WEIGHT_AVAIL) %>%
+  select(!AMOUNT_WEIGHT_LIMIT)
+
+test_data <- read.csv("Use_Data/train_ScotiaDSD.csv") %>% 
+  select(!EVENT_MONTH) %>% 
+  select(!EVENT_DAY_OF_WEEK) %>%
+  select(!EVENT_TIME) %>%
+  select(!TRANSACTION_ID) %>% 
+  select(!USER_AGENT) %>%
+  select(!CITY) %>%
+  mutate(FRAUD_FLAG = as.factor(FRAUD_FLAG))
 
 # create correlation data
-cor_data <- data.frame(cor(train_data)) %>% select(FRAUD_FLAG) %>% rownames_to_column("category")
+cor_data <- data.frame(cor(train_data %>% mutate(FRAUD_FLAG = as.numeric(FRAUD_FLAG)))) %>%
+  select(FRAUD_FLAG) %>% 
+  rownames_to_column("category")
 
