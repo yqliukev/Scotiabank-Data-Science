@@ -2,7 +2,7 @@
 library(tidyverse)
 
 # clean training data
-train_data <- read.csv("Use_Data/train_ScotiaDSD.csv") %>% 
+train_data <- read.csv("../Use_Data/train_ScotiaDSD.csv") %>% 
   filter(AMOUNT_WEIGHT_AVAIL != "#DIV/0!", AMOUNT_WEIGHT_LIMIT != "#DIV/0!") %>% 
   mutate(AMOUNT_WEIGHT_AVAIL = as.numeric(AMOUNT_WEIGHT_AVAIL)) %>%
   mutate(AMOUNT_WEIGHT_LIMIT = as.numeric(AMOUNT_WEIGHT_LIMIT)) %>%
@@ -17,7 +17,7 @@ train_data <- read.csv("Use_Data/train_ScotiaDSD.csv") %>%
   select(!AMOUNT_WEIGHT_AVAIL) %>%
   select(!AMOUNT_WEIGHT_LIMIT)
 
-test_data <- read.csv("Use_Data/train_ScotiaDSD.csv") %>% 
+test_data <- read.csv("../Use_Data/test_ScotiaDSD.csv") %>% 
   select(!EVENT_MONTH) %>% 
   select(!EVENT_DAY_OF_WEEK) %>%
   select(!EVENT_TIME) %>%
